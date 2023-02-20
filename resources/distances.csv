@@ -1,0 +1,157 @@
+City 1,City 2,Distance (km)
+Vancouver,North Vancouver,10136
+North Vancouver,Vancouver,10136
+Vancouver,West Vancouver,8579
+West Vancouver,Vancouver,8579
+Vancouver,Burnaby,13357
+Burnaby,Vancouver,13357
+Vancouver,Richmond,16002
+Richmond,Vancouver,16002
+Vancouver,Surrey,29200
+Surrey,Vancouver,29200
+Vancouver,New Westminster,25241
+New Westminster,Vancouver,25241
+Vancouver,Delta,25324
+Delta,Vancouver,25324
+Vancouver,Langley,49681
+Langley,Vancouver,49681
+Vancouver,Abbotsford,71440
+Abbotsford,Vancouver,71440
+Vancouver,Chilliwack,102024
+Chilliwack,Vancouver,102024
+Vancouver,Hope,151827
+Hope,Vancouver,151827
+Vancouver,Mission,67229
+Mission,Vancouver,67229
+North Vancouver,West Vancouver,9723
+West Vancouver,North Vancouver,9723
+North Vancouver,Burnaby,15564
+Burnaby,North Vancouver,15564
+North Vancouver,Richmond,30299
+Richmond,North Vancouver,30299
+North Vancouver,Surrey,31407
+Surrey,North Vancouver,31407
+North Vancouver,New Westminster,27448
+New Westminster,North Vancouver,27448
+North Vancouver,Delta,37292
+Delta,North Vancouver,37292
+North Vancouver,Langley,51888
+Langley,North Vancouver,51888
+North Vancouver,Abbotsford,73648
+Abbotsford,North Vancouver,73648
+North Vancouver,Chilliwack,104231
+Chilliwack,North Vancouver,104231
+North Vancouver,Hope,154035
+Hope,North Vancouver,154035
+North Vancouver,Mission,69436
+Mission,North Vancouver,69436
+West Vancouver,Burnaby,23217
+Burnaby,West Vancouver,23217
+West Vancouver,Richmond,23925
+Richmond,West Vancouver,23925
+West Vancouver,Surrey,39060
+Surrey,West Vancouver,39060
+West Vancouver,New Westminster,35101
+New Westminster,West Vancouver,35101
+West Vancouver,Delta,33247
+Delta,West Vancouver,33247
+West Vancouver,Langley,59541
+Langley,West Vancouver,59541
+West Vancouver,Abbotsford,81301
+Abbotsford,West Vancouver,81301
+West Vancouver,Chilliwack,111884
+Chilliwack,West Vancouver,111884
+West Vancouver,Hope,161688
+Hope,West Vancouver,161688
+West Vancouver,Mission,77089
+Mission,West Vancouver,77089
+Burnaby,Richmond,21171
+Richmond,Burnaby,21171
+Burnaby,Surrey,13886
+Surrey,Burnaby,13886
+Burnaby,New Westminster,7367
+New Westminster,Burnaby,7367
+Burnaby,Delta,28164
+Delta,Burnaby,28164
+Burnaby,Langley,37343
+Langley,Burnaby,37343
+Burnaby,Abbotsford,59102
+Abbotsford,Burnaby,59102
+Burnaby,Chilliwack,89686
+Chilliwack,Burnaby,89686
+Burnaby,Hope,139489
+Hope,Burnaby,139489
+Burnaby,Mission,54891
+Mission,Burnaby,54891
+Richmond,Surrey,29890
+Surrey,Richmond,29890
+Richmond,New Westminster,21432
+New Westminster,Richmond,21432
+Richmond,Delta,14101
+Delta,Richmond,14101
+Richmond,Langley,44370
+Langley,Richmond,44370
+Richmond,Abbotsford,79181
+Abbotsford,Richmond,79181
+Richmond,Chilliwack,109765
+Chilliwack,Richmond,109765
+Richmond,Hope,159568
+Hope,Richmond,159568
+Richmond,Mission,78491
+Mission,Richmond,78491
+Surrey,New Westminster,7052
+New Westminster,Surrey,7052
+Surrey,Delta,25694
+Delta,Surrey,25694
+Surrey,Langley,24328
+Langley,Surrey,24328
+Surrey,Abbotsford,46088
+Abbotsford,Surrey,46088
+Surrey,Chilliwack,76671
+Chilliwack,Surrey,76671
+Surrey,Hope,126475
+Hope,Surrey,126475
+Surrey,Mission,49834
+Mission,Surrey,49834
+New Westminster,Delta,28463
+Delta,New Westminster,28463
+New Westminster,Langley,27760
+Langley,New Westminster,27760
+New Westminster,Abbotsford,54742
+Abbotsford,New Westminster,54742
+New Westminster,Chilliwack,85326
+Chilliwack,New Westminster,85326
+New Westminster,Hope,135129
+Hope,New Westminster,135129
+New Westminster,Mission,53114
+Mission,New Westminster,53114
+Delta,Langley,30347
+Langley,Delta,30347
+Delta,Abbotsford,69166
+Abbotsford,Delta,69166
+Delta,Chilliwack,99749
+Chilliwack,Delta,99749
+Delta,Hope,149553
+Hope,Delta,149553
+Delta,Mission,68476
+Mission,Delta,68476
+Langley,Abbotsford,31877
+Abbotsford,Langley,31877
+Langley,Chilliwack,62461
+Chilliwack,Langley,62461
+Langley,Hope,112264
+Hope,Langley,112264
+Langley,Mission,35284
+Mission,Langley,35284
+Abbotsford,Chilliwack,34258
+Chilliwack,Abbotsford,34258
+Abbotsford,Hope,84061
+Hope,Abbotsford,84061
+Abbotsford,Mission,12333
+Mission,Abbotsford,12333
+Chilliwack,Hope,52480
+Hope,Chilliwack,52480
+Chilliwack,Mission,42935
+Mission,Chilliwack,42935
+Hope,Mission,92915
+Mission,Hope,92915
