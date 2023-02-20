@@ -20,13 +20,8 @@ CITY_LOCATIONS = {
 }
 
 
-# Distance heuristic
-def distance(node, goal):
-    return ((goal[0] - node[0]) ** 2 + (goal[1] - node[1]) ** 2) ** 0.5
-
-
 # Grassfire search algorithm
-def grassfire_search(graph, start, goal, **kwargs):
+def grassfire_search(graph: dict, start: str, goal: str, **kwargs) -> tuple:
     queue = deque()
     queue.append(start)
     came_from = {}
@@ -54,19 +49,19 @@ def grassfire_search(graph, start, goal, **kwargs):
     return path, f'{cost_so_far[goal] / 1000:.2f}'
 
 
-def minimum_distance(city1, city2, city_locations):
+def minimum_distance(city1: str, city2: str, city_locations: dict) -> float:
     x1, y1 = city_locations[city1]
     x2, y2 = city_locations[city2]
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 
 
-def heuristic(city, goal, city_locations):
+def heuristic(city: str, goal: str, city_locations: dict):
     x = min([minimum_distance(city, goal, city_locations) for city in city_locations])
     y = random.randint(5, 10)
     return math.floor(x - y)
 
 
-def astar_search(graph, start, goal, **kwargs) -> tuple:
+def astar_search(graph: dict, start: str, goal: str, **kwargs: dict) -> tuple:
     """
 
     :param graph: A dictionary that represents the weighted graph
@@ -126,7 +121,15 @@ def astar_search(graph, start, goal, **kwargs) -> tuple:
     return path, f'{cost_so_far[goal] / 1000:.2f}'
 
 
-def dijkstra_search(graph, start, end, **kwargs):
+def dijkstra_search(graph: dict, start: str, end: str, **kwargs: dict) -> tuple:
+    """
+
+    :param graph: Dictionary representation of the graph
+    :param start: String representing the Starting City
+    :param end: String representing the Ending City
+    :param kwargs: Dictionary containing keyword arguments
+    :return: Tuple containing a list (list of cities in the path) and a string (containing the distance in km)
+    """
     pq = []  # priority queue to store nodes with the lowest cost
     visited = set()  # set of visited nodes
     dist = {start: 0}  # dictionary to keep track of the distance from the start node to each node
