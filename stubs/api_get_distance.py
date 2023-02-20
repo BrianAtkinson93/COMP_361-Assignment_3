@@ -5,7 +5,7 @@ from stubs.pickle_file import *
 API_KEY = 'AIzaSyCly-jDt7xNsCxEve0CJq5iR2wjhd9vvxE'
 
 
-def get_distance(city1, city2):
+def get_distance(city1: str, city2: str) -> int:
     url = "https://maps.googleapis.com/maps/api/distancematrix/json"
     params = {
         "units": "metric",
@@ -16,22 +16,27 @@ def get_distance(city1, city2):
     response = requests.get(url, params=params)
     data = response.json()
     distance = data['rows'][0]['elements'][0]['distance']['value']
-    return distance
+    return int(distance)
 
 
-def pull_data(CITIES, COST):
-    for i, city1 in enumerate(CITIES):
-        for j, city2 in enumerate(CITIES):
+def pull_data(cities_: list, cost: dict) -> dict:
+    for i, city1 in enumerate(cities_):
+        for j, city2 in enumerate(cities_):
             if i < j:
                 distance = get_distance(city1, city2)
-                COST[(city1, city2)] = distance
-                COST[(city2, city1)] = distance
+                cost[(city1, city2)] = distance
+                cost[(city2, city1)] = distance
 
-    dump_data(COST)
-    return COST
+    dump_data(cost)
+    return cost
 
 
-def generate_connectivity_map(cities):
+def generate_connectivity_map(cities: list) -> dict:
+    """
+
+    :param cities:
+    :return:
+    """
     CONNECTIVITY_MAP = {}
     for city in cities:
         CONNECTIVITY_MAP[city] = {}
@@ -47,4 +52,3 @@ if __name__ == '__main__':
               "Langley", "Abbotsford", "Mission", "Chilliwack", "New Westminster"]
     connectivity_map = generate_connectivity_map(cities)
     dump_data(connectivity_map)
-    # print(connectivity_map)

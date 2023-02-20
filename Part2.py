@@ -22,6 +22,14 @@ CITY_LOCATIONS = {
 
 # Grassfire search algorithm
 def grassfire_search(graph: dict, start: str, goal: str, **kwargs) -> tuple:
+    """
+
+    :param graph:
+    :param start:
+    :param goal:
+    :param kwargs:
+    :return:
+    """
     queue = deque()
     queue.append(start)
     came_from = {}
@@ -50,12 +58,26 @@ def grassfire_search(graph: dict, start: str, goal: str, **kwargs) -> tuple:
 
 
 def minimum_distance(city1: str, city2: str, city_locations: dict) -> float:
+    """
+
+    :param city1:
+    :param city2:
+    :param city_locations:
+    :return:
+    """
     x1, y1 = city_locations[city1]
     x2, y2 = city_locations[city2]
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 
 
 def heuristic(city: str, goal: str, city_locations: dict):
+    """
+
+    :param city:
+    :param goal:
+    :param city_locations:
+    :return:
+    """
     x = min([minimum_distance(city, goal, city_locations) for city in city_locations])
     y = random.randint(5, 10)
     return math.floor(x - y)
@@ -162,6 +184,11 @@ def dijkstra_search(graph: dict, start: str, end: str, **kwargs: dict) -> tuple:
 
 
 def main(args):
+    """
+
+    :param args:
+    :return:
+    """
     ALGORITHMS = {
         'A*': astar_search,
         'Dijkstra': dijkstra_search,
