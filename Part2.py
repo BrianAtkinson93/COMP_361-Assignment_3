@@ -1,4 +1,6 @@
 import argparse, heapq, math, random, time, sys
+from typing import Tuple, Dict, List
+
 import stubs.pickle_file
 
 from collections import deque
@@ -21,14 +23,16 @@ CITY_LOCATIONS = {
 
 
 # Grassfire search algorithm
-def grassfire_search(graph: dict, start: str, goal: str, **kwargs) -> tuple:
+def grassfire_search(graph: Dict[str, Dict[str, float]], start: str, goal: str, **kwargs) -> Tuple[list, str]:
     """
+    Find the shortest path between two nodes in a weighted graph using grassfire algorithm
 
-    :param graph:
-    :param start:
-    :param goal:
-    :param kwargs:
-    :return:
+    :param graph: A dictionary representing the graph, where each key is a node and its value is a dictionary of
+        neighboring nodes and their edge weights.
+    :param start: The node to start the search from.
+    :param goal: The node to search for.
+    :return: A tuple containing a list of nodes in the shortest path from start to goal, and a string representing
+        the total cost of the path (in kilometers) rounded to 2 decimal places.
     """
     queue = deque()
     queue.append(start)
@@ -57,40 +61,47 @@ def grassfire_search(graph: dict, start: str, goal: str, **kwargs) -> tuple:
     return path, f'{cost_so_far[goal] / 1000:.2f}'
 
 
-def minimum_distance(city1: str, city2: str, city_locations: dict) -> float:
+def minimum_distance(city1: str, city2: str, city_locations: Dict[str, Tuple[float, float]]) -> float:
     """
+    Calculate the Euclidean distance between two cities represented as (x, y) coordinates.
 
-    :param city1:
-    :param city2:
-    :param city_locations:
-    :return:
+    :param city1: A string representing the name of the first city.
+    :param city2: A string representing the name of the second city.
+    :param city_locations: A dictionary representing the (x, y) coordinates of all cities, where each key is the
+        name of a city and its value is a tuple of two floats representing the x and y coordinates.
+    :return: A float representing the Euclidean distance between the two cities.
     """
     x1, y1 = city_locations[city1]
     x2, y2 = city_locations[city2]
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 
 
-def heuristic(city: str, goal: str, city_locations: dict):
+def heuristic(city: str, goal: str, city_locations: Dict[str, Tuple[float, float]]) -> int:
     """
+    Calculate the heuristic value for a city using the minimum distance to the goal and a random offset.
 
-    :param city:
-    :param goal:
-    :param city_locations:
-    :return:
+    :param city: A string representing the name of the city to calculate the heuristic for.
+    :param goal: A string representing the name of the goal city.
+    :param city_locations: A dictionary representing the (x, y) coordinates of all cities, where each key is the
+        name of a city and its value is a tuple of two floats representing the x and y coordinates.
+    :return: An integer representing the heuristic value for the city.
     """
     x = min([minimum_distance(city, goal, city_locations) for city in city_locations])
     y = random.randint(5, 10)
     return math.floor(x - y)
 
 
-def astar_search(graph: dict, start: str, goal: str, **kwargs: dict) -> tuple:
-    """
+def astar_search(graph: Dict[str, Dict[str, float]], start: str, goal: str,
+                 **kwargs: Dict[str, Tuple[float, float]]) -> Tuple[List[str], str]:
+    """Find the shortest path from the start to the goal node using A* algorithm.
 
-    :param graph: A dictionary that represents the weighted graph
-    :param start: The starting Node
-    :param goal: The Ending Node
-    :param kwargs: object containing keyword arguments
-    :return: A tuple containing the path from start to end nodes and the distance to travel that path
+    :param graph: A dictionary representing the graph, where each key is a node and its value is a dictionary of
+        neighboring nodes and their edge weights.
+    :param start: The node to start the search from.
+    :param goal: The node to search for.
+    :param kwargs: A dictionary that contains additional keyword arguments. Here it should contain 'city_locations', a
+                   dictionary that maps each city to its x and y coordinates.
+    :return: A tuple containing the path from start to end nodes and the distance to travel that path.
     """
     city_locations = kwargs['city_locations']
 
@@ -145,12 +156,16 @@ def astar_search(graph: dict, start: str, goal: str, **kwargs: dict) -> tuple:
 
 def dijkstra_search(graph: dict, start: str, end: str, **kwargs: dict) -> tuple:
     """
+    Searches for the shortest path between two nodes in a graph using Dijkstra's algorithm.
 
-    :param graph: Dictionary representation of the graph
-    :param start: String representing the Starting City
-    :param end: String representing the Ending City
-    :param kwargs: Dictionary containing keyword arguments
-    :return: Tuple containing a list (list of cities in the path) and a string (containing the distance in km)
+    :param graph: A dictionary representation of the graph. The keys are nodes, and the values are dictionaries
+                  that represent the edges between the node and its neighbors. Each neighbor is a key in the
+                  inner dictionary, and the value is the weight of the edge between the node and its neighbor.
+    :param start: The starting node for the search.
+    :param end: The target node for the search.
+    :param kwargs: A dictionary containing keyword arguments. Currently unused.
+    :return: A tuple containing two elements: a list of nodes in the shortest path from the starting node to the
+             target node, and a string representing the total weight of the path in kilometers.
     """
     pq = []  # priority queue to store nodes with the lowest cost
     visited = set()  # set of visited nodes
@@ -185,15 +200,18 @@ def dijkstra_search(graph: dict, start: str, end: str, **kwargs: dict) -> tuple:
 
 def main(args):
     """
+    Main flow of the program, correct names of cities,
+    get cost and path, return to user.
 
-    :param args:
-    :return:
+    :param args: argparse Namespace object
     """
     ALGORITHMS = {
         'A*': astar_search,
         'Dijkstra': dijkstra_search,
         'Grassfire': grassfire_search
     }
+
+    print(f'Running {args.Algorithm} ...')
 
     start_city = args.City_1.lower()
     end_city = args.City_2.lower()
