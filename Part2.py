@@ -76,6 +76,22 @@ def minimum_distance(city1: str, city2: str, city_locations: Dict[str, Tuple[flo
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 
 
+def get_successors(city: str, city_locations: Dict[str, Tuple[float, float]]) -> List[str]:
+    """
+    Get a list of all successor nodes of a given node.
+
+    :param city: A string representing the name of the node to get successors for.
+    :param city_locations: A dictionary representing the (x, y) coordinates of all nodes, where each key is the
+        name of a node and its value is a tuple of two floats representing the x and y coordinates.
+    :return: A list of strings representing the names of the successor nodes.
+    """
+    successors = []
+    for successor in city_locations.keys():
+        if successor != city:
+            successors.append(successor)
+    return successors
+
+
 def heuristic(city: str, goal: str, city_locations: Dict[str, Tuple[float, float]]) -> int:
     """
     Calculate the heuristic value for a city using the minimum distance to the goal and a random offset.
@@ -88,6 +104,28 @@ def heuristic(city: str, goal: str, city_locations: Dict[str, Tuple[float, float
     """
     x = min([minimum_distance(city, goal, city_locations) for city in city_locations])
     y = random.randint(5, 10)
+    return math.floor(x - y)
+
+
+def heuristic_consistent(city: str, goal: str, city_locations: Dict[str, Tuple[float, float]]) -> int:
+    """
+    Calculate the heuristic value for a city using the minimum distance to the goal and a random offset.
+    Ensure the heuristic is consistent by adjusting the random offset for each node.
+
+    :param city: A string representing the name of the city to calculate the heuristic for.
+    :param goal: A string representing the name of the goal city.
+    :param city_locations: A dictionary representing the (x, y) coordinates of all cities, where each key is the
+        name of a city and its value is a tuple of two floats representing the x and y coordinates.
+    :return: An integer representing the heuristic value for the city.
+    """
+    x = min([minimum_distance(city, goal, city_locations) for city in city_locations])
+    y = random.randint(5, 10)
+    for successor in get_successors(city, city_locations):
+        successor_distance = minimum_distance(successor, goal, city_locations)
+        movement_cost = math.sqrt((city_locations[city][0] - city_locations[successor][0]) ** 2
+                                  + (city_locations[city][1] - city_locations[successor][1]) ** 2)
+        max_movement_cost = movement_cost + successor_distance
+        y = min(y, max(x - successor_distance, max_movement_cost - x))
     return math.floor(x - y)
 
 
@@ -104,6 +142,7 @@ def astar_search(graph: Dict[str, Dict[str, float]], start: str, goal: str,
     :return: A tuple containing the path from start to end nodes and the distance to travel that path.
     """
     city_locations = kwargs['city_locations']
+    heur_func = kwargs['heuristic_func']
 
     # The frontier is a list that holds the nodes to be explored
     # We then initialize the heap with the start and distance at 0
@@ -112,7 +151,6 @@ def astar_search(graph: Dict[str, Dict[str, float]], start: str, goal: str,
     # a dictionary that maps each node to the cost of the shortest
     # path from the starting node to that node. The dictionaries are
     # initialized with the starting node.
-
     frontier = []
     heapq.heappush(frontier, (0, start))
     came_from = {}
@@ -141,7 +179,11 @@ def astar_search(graph: Dict[str, Dict[str, float]], start: str, goal: str,
             new_cost = cost_so_far[current] + graph[current][next]
             if next not in cost_so_far or new_cost < cost_so_far[next]:
                 cost_so_far[next] = new_cost
-                priority = new_cost + heuristic(next, goal, city_locations)  # use actual cost + heuristic
+                if heur_func:
+                    priority = new_cost + heuristic_consistent(next, goal,
+                                                               city_locations)  # use actual cost + heuristic
+                else:
+                    priority = new_cost + heuristic(next, goal, city_locations)  # use actual cost + heuristic
                 heapq.heappush(frontier, (priority, next))
                 came_from[next] = current
 
@@ -219,7 +261,8 @@ def main(args):
     end_city = end_city.title()
 
     # Execute the algorithm as given via cmdline
-    path, cost = ALGORITHMS[args.Algorithm](CONNECTIVITY_MAP, start_city, end_city, city_locations=CITY_LOCATIONS)
+    path, cost = ALGORITHMS[args.Algorithm](CONNECTIVITY_MAP, start_city, end_city, city_locations=CITY_LOCATIONS,
+                                            heuristic_func=args.consistent)
 
     # Print the results
     if path is not None:
@@ -234,11 +277,15 @@ if __name__ == '__main__':
 
     start_time = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('City_1', help='Input name for starting city')
-    parser.add_argument('City_2', help='Input name for ending city')
 
     required = parser.add_argument_group('Required')
+    required.add_argument('City_1', help='Input name for starting city')
+    required.add_argument('City_2', help='Input name for ending city')
     required.add_argument('Algorithm', choices=['A*', 'Grassfire', 'Dijkstra'], help='Algorithm Choice')
+
+    optional = parser.add_argument_group('Optional')
+    optional.add_argument('--consistent', default=False, action='store_true',
+                          help='Set this flag if you`d like to use consistent heuristics')
 
     arguments = parser.parse_args()
 

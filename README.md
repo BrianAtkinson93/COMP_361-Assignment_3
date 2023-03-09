@@ -1,5 +1,5 @@
 # ASSIGNMENT_3
-[![Python 3](https://img.shields.io/badge/Python-3-green.svg)](https://www.python.org/downloads/)
+[![Python 3.6+](https://img.shields.io/badge/Python-3.6+-green.svg)](https://www.python.org/downloads/)
 [![GitHub](https://img.shields.io/badge/GitHub-BrianAtkinson93-blueviolet?style=flat&logo=github)](https://github.com/BrianAtkinson93)
 [![University of the Fraser Valley](https://img.shields.io/badge/University%20of%20the%20Fraser%20Valley-Visit-blue)](https://www.ufv.ca/)
 
@@ -59,12 +59,14 @@ number. For example, the cost of traveling from city hall Abbotsford to Chilliwa
   <br><br>
 - Build a heuristic function 
   - X= minimum distance between the city halls 
-  - Y= a random number between 5 to 10 
+  - Y= a random number between 5 and 10 
   - H(c1,c2)=round_down (X-Y) # heuristic value between city 1 and 2
 <br><br>
 - Subtracting the random number (Y) from X in the heuristic function makes sure the heuristic value is admissible 
 but doesn’t guarantee that it is consistent. Write a function that makes sure the heuristic values are consistent 
 as well. This means, for some nodes the Y value should be changed to make their heuristic consistent.
+
+
 ### Part 2:
 
 - Write a program that uses a graph-based path planning algorithm (i.e., A*) to guide the driverless car for traveling between two city halls. 
